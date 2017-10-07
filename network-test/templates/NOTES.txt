@@ -1,0 +1,3 @@
+Network test deployed. You can watch the test with:
+    export POD_NAME=$(kubectl --namespace {{ .Release.Namespace }} get po -l app=orchestrator -o jsonpath="{.items[0].metadata.name}")
+    kubectl --namespace {{ .Release.Namespace }} logs -f $POD_NAME

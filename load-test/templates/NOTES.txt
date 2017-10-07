@@ -1,0 +1,2 @@
+Load test deployed. You can watch the test with:
+    kubectl --namespace {{ .Release.Namespace }} logs -f aggregator

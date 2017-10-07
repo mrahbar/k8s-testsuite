@@ -1,0 +1,22 @@
+imagePullPolicy: IfNotPresent
+images:
+  loadbotVersion: "1.0"
+  webserverVersion: "1.0"
+  aggregatorVersion: "1.0"
+
+cpuRequests:
+  loadbot: "100m"
+  webserver: "100m"
+
+rbac:
+  create: true
+  serviceAccountName: default
+
+aggregator:
+  maxReplicas: 100
+  logLevel: 2
+
+loadbot:
+  rate: 1000
+  workers: 10
+  duration: 1s

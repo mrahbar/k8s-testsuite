@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: netperf-w2
+  labels:
+    app: w2
+spec:
+  type: ClusterIP
+  ports:
+  - name: netperf-w2
+    protocol: TCP
+    port: 5201
+    targetPort: 5201
+  - name: netperf-w2-udp
+    protocol: UDP
+    port: 5201
+    targetPort: 5201
+  - name: netperf-w2-netperf
+    protocol: TCP
+    port: 12865
+    targetPort: 12865
+  selector:
+    app: worker
+    worker: w2

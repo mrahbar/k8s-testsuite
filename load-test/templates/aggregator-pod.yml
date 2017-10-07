@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aggregator
+  labels:
+    app: aggregator
+spec:
+  serviceAccountName: {{ if .Values.rbac.create }}aggregator{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
+  containers:
+  - name: aggregator
+    image: endianogino/aggregator:{{ .Values.images.aggregatorVersion }}
+    imagePullPolicy: {{ .Values.imagePullPolicy }}
+    args:
+    - -max-replicas={{ .Values.aggregator.maxReplicas }}
+    - -logtostderr
+    - -v={{ .Values.aggregator.logLevel }}

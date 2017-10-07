@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: worker1
+spec:
+  replicas: 1
+  selector:
+    app: worker
+    worker: w1
+  template:
+    metadata:
+      name: worker1
+      labels:
+        app: worker
+        worker: w1
+    spec:
+      containers:
+      - name: w1
+        image: endianogino/netperf:{{ .Values.images.workerVersion }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+        - --mode=worker
+    {{- if .Values.debug.worker }}
+        - -debug
+    {{- end}}
+        ports:
+        - name: iperf3-port
+          protocol: UDP
+          containerPort: 5201
+        - name: netperf-port
+          protocol: TCP
+          containerPort: 12865
+        env:
+        - name: workerName
+          value: "netperf-w1"
+        - name: workerPodIP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: orchestratorPort
+          value: "5202"
+        - name: orchestratorPodIP
+          value: orchestrator

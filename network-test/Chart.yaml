@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Network test Helm chart for Kubernetes
+name: networktest
+version: 0.1.0

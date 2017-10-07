@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: orchestrator
+spec:
+  replicas: 1
+  selector:
+    app: orchestrator
+  template:
+    metadata:
+      name: orchestrator
+      labels:
+        app: orchestrator
+    spec:
+      containers:
+      - name: orchestrator
+        image: endianogino/netperf:{{ .Values.images.orchestratorVersion }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+        - --mode=orchestrator
+    {{- if .Values.debug.orchestrator }}
+        - -debug
+    {{- end}}
+        ports:
+        - name: service-port
+          protocol: TCP
+          containerPort: 5202

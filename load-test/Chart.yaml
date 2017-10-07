@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Load test Helm chart for Kubernetes
+name: loadtest
+version: 0.1.0

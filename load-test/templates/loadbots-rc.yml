@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: loadbots
+spec:
+  replicas: 1
+  selector:
+    app: loadbots
+  template:
+    metadata:
+      name: loadbots
+      labels:
+        app: loadbots
+    spec:
+      containers:
+      - name: loadbots
+        image: endianogino/vegeta-server:{{ .Values.images.loadbotVersion }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+        - -host=webserver
+        - -address=:8080
+        - -rate={{ .Values.loadbot.rate }}
+        - -workers={{ .Values.loadbot.workers}}
+        - -duration={{ .Values.loadbot.duration}}
+        ports:
+        - name: http-port
+          protocol: TCP
+          containerPort: 8080
+        resources:
+          requests:
+            cpu: {{ .Values.cpuRequests.loadbot }}
