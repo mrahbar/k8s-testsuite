@@ -33,7 +33,7 @@ You can install a test by running:
 This Helm chart deployes a full load test suite in Kubernetes. It consists of the 3 microservices:
 1. A webserver based on [simple-webserver](https://github.com/mrahbar/simple-webserver)
 2. A loadbot client which is based on [this](https://github.com/kubernetes/contrib/tree/master/scale-demo/vegeta) and [that](https://github.com/tsenart/vegeta)
-3. An aggregator which orchestrates the test run
+3. An [aggregator](https://github.com/mrahbar/kubespector/tree/master/resources/scaletest) which orchestrates the test run
 
 ##### Aggregator
 
